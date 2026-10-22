@@ -5,6 +5,8 @@ import "@fontsource-variable/vazirmatn";
 import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BrandRail from "@/components/BrandRail";
+import ChatWidget from "@/components/ChatWidget";
 import ScrollEffects from "@/components/ScrollEffects";
 import { getDict, getDir, isLocale, locales } from "@/lib/i18n";
 
@@ -23,6 +25,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const themeScript = `try{var t=localStorage.getItem("theme");if(!t){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){}`;
 
+// This is the ONLY root layout (the only <html>). The old extra src/app/layout.tsx rendered a second
+// <html> around this one, which caused hydration errors when switching language.
 export default async function RootLayout({
   children, params,
 }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
@@ -30,12 +34,14 @@ export default async function RootLayout({
   if (!isLocale(locale)) notFound();
   const t = getDict(locale);
   return (
-    <html lang={locale} dir={getDir(locale)} suppressHydrationWarning>
+    <html lang={locale} dir={getDir(locale)} data-theme="light" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
       <body>
         <Header locale={locale} t={t} />
-        <main>{children}</main>
+        <main id="main" className="page-layer">{children}</main>
+        <BrandRail t={t.rail} />
         <Footer locale={locale} t={t} />
+        <ChatWidget locale={locale} />
         <ScrollEffects />
       </body>
     </html>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Eyebrow } from "@/components/Section";
-import ExplodedScroll from "@/components/home/ExplodedScroll";
+import PartsJourney from "@/components/home/PartsJourney";
 import { brandSlugs, categoryImages, demoProducts } from "@/data/demo";
 import { IMG } from "@/data/images";
 import { getDict, isLocale } from "@/lib/i18n";
@@ -36,8 +36,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
-      {/* 2. Exploded product (pinned, scroll-scrubbed) */}
-      <ExplodedScroll t={h.exploded} />
+      {/* 2. Parts travel with the scroll (fixed WebGL layer) and assemble here */}
+      <PartsJourney t={h.journey} />
 
       {/* 3. Categories */}
       <section className="mx-auto max-w-7xl px-5 py-20">

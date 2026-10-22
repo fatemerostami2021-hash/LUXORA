@@ -4,11 +4,16 @@ const locales = ["en", "fa"];
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  if (locales.some((l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`))) {
-    return NextResponse.next();
+  const hit = locales.find((l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`));
+  if (hit) {
+    // remember the visitor's language choice
+    const res = NextResponse.next();
+    if (req.cookies.get("NEXT_LOCALE")?.value !== hit) res.cookies.set("NEXT_LOCALE", hit, { path: "/", maxAge: 60 * 60 * 24 * 365, sameSite: "lax" });
+    return res;
   }
+  const saved = req.cookies.get("NEXT_LOCALE")?.value;
   const accept = (req.headers.get("accept-language") ?? "").toLowerCase();
-  const locale = accept.startsWith("fa") ? "fa" : "en";
+  const locale = saved && locales.includes(saved) ? saved : accept.startsWith("fa") ? "fa" : "en";
   const url = req.nextUrl.clone();
   url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
   return NextResponse.redirect(url);

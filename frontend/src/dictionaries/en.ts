@@ -1,19 +1,22 @@
 export const en = {
   tagline: "THE ART OF HAIR TECHNOLOGY",
   announcement: "Elevate Your Routine. Experience the Extraordinary.",
-  nav: { main: "Main navigation", shop: "Shop", brands: "Brands", about: "About", contact: "Contact", theme: "Toggle light/dark theme", menu: "Open menu" },
+  nav: { main: "Main navigation", shop: "Shop", brands: "Brands", about: "About", contact: "Contact", theme: "Toggle light/dark theme", menu: "Open menu", search: "Search", language: "Switch language", skip: "Skip to content", shopMenu: "Shop menu" },
   common: { preview: "Phase 1 preview: demo content, not connected to real data yet." },
   home: {
     heroTitle: "Your Hair. Your Signature.",
     heroText: "Discover a new dimension of hair styling with innovative tools designed to elevate your everyday routine. Explore exceptional technology, refined design, and professional-quality results.",
     ctaPrimary: "Discover the Collection", ctaSecondary: "Explore Bestsellers",
     heroVisual: "3D product scene placeholder (Phase 3)",
-    exploded: {
-      eyebrow: "Inside the technology", title: "See How It Comes Together.",
-      text: "Keep scrolling and the styler separates into its parts: filter, motor, fan, heating element and an interchangeable barrel.",
-      labels: ["Filter (Removable)", "Motor", "Fan", "Heating Element", "Curling Barrel (Interchangeable)"],
-      hint: "Scroll to explore", note: "Scroll-driven 2.5D effect built from the supplied concept image, not a real 3D model",
-      alt: "Exploded view of a hair styling tool showing its filter, motor, fan, heating element and curling barrel",
+    journey: {
+      eyebrow: "The Art of Radiance", title: "Every Woman Has a Look Only She Can Wear.",
+      text: "Beauty is not about becoming someone else. It is the quiet confidence of a style that feels like you: soft waves in the morning light, a sleek finish for an evening out, a glow that tells the world you are ready. Choose the tools that let your own beauty speak first.",
+      points: [
+        { head: "Confidence", text: "The right style changes how you carry yourself, and how the day carries you." },
+        { head: "Radiance", text: "Healthy shine, soft movement and polished detail: the finishing touches that make a look glow." },
+        { head: "Expression", text: "Your hair, your skin, your signature. Beauty is the most personal language you speak." },
+      ],
+      alt: "Parts of a hair styling tool floating across the page as you scroll",
     },
     attachments: {
       eyebrow: "Attachments", title: "One Tool. Endless Looks.",
@@ -97,5 +100,13 @@ export const en = {
       { q: "How can I contact customer support?", a: "Use the contact form or the support details published on our website." },
     ],
   },
-  footer: { explore: "Footer navigation", note: "Prices, shipping, warranty and payment options will depend on your region." },
+  rail: { eyebrow: "Beauty brands", title: "The Names Women Trust.", text: "From hair technology to lipstick, skincare and fragrance: explore the brands behind your daily ritual.", hint: "Hover to pause. Click a brand to visit its website." },
+  footer: {
+    explore: "Footer navigation", note: "Prices, shipping, warranty and payment options will depend on your region.",
+    about: "LUXORA is a beauty destination for women: hair technology, makeup, skincare and fragrance, chosen with care and presented with elegance.",
+    shopTitle: "Shop", companyTitle: "Company", supportTitle: "Support", contactTitle: "Talk to us", followTitle: "Follow us",
+    shop: ["Hair Tools", "Makeup", "Skincare", "Fragrance & Body", "Hair Care"],
+    support: ["Shipping & Delivery", "Returns & Refunds", "Warranty", "Frequently Asked Questions"],
+    call: "Call us", email: "Email", rights: "All rights reserved.", hairNote: "Beauty flows. So does your style.",
+  },
 };
