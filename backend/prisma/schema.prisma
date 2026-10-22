@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Region {
+  AE
+  CA
+  IR
+  OM
+}
+
+enum Currency {
+  AED
+  CAD
+  IRR
+  OMR
+}
+
+enum Locale {
+  en
+  fa
+  ar
+}
+
+enum ProductStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Brand {
+  id           String             @id @default(cuid())
+  slug         String             @unique
+  name         String
+  logoUrl      String?
+  isActive     Boolean            @default(true)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  translations BrandTranslation[]
+  products     Product[]
+}
+
+model BrandTranslation {
+  id          String @id @default(cuid())
+  brandId     String
+  locale      Locale
+  headline    String
+  description String
+  brand       Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  @@unique([brandId, locale])
+}
+
+model Category {
+  id           String                @id @default(cuid())
+  slug         String                @unique
+  sortOrder    Int                   @default(0)
+  translations CategoryTranslation[]
+  products     Product[]
+}
+
+model CategoryTranslation {
+  id         String   @id @default(cuid())
+  categoryId String
+  locale     Locale
+  name       String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, locale])
+}
+
+model Product {
+  id           String               @id @default(cuid())
+  slug         String               @unique
+  sku          String?              @unique
+  brandId      String
+  categoryId   String
+  status       ProductStatus        @default(DRAFT)
+  isDemo       Boolean              @default(false)
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  brand        Brand                @relation(fields: [brandId], references: [id])
+  category     Category             @relation(fields: [categoryId], references: [id])
+  translations ProductTranslation[]
+  prices       ProductPrice[]
+  inventory    Inventory[]
+  specs        ProductSpec[]
+
+  @@index([brandId])
+  @@index([categoryId])
+  @@index([status])
+}
+
+model ProductTranslation {
+  id          String  @id @default(cuid())
+  productId   String
+  locale      Locale
+  name        String
+  summary     String?
+  description String?
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, locale])
+}
+
+// One explicit price per region (no silent currency conversion). A product is sold in a region only if a price row exists.
+model ProductPrice {
+  id        String   @id @default(cuid())
+  productId String
+  region    Region
+  currency  Currency
+  amount    Decimal  @db.Decimal(14, 3)
+  compareAt Decimal? @db.Decimal(14, 3)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, region])
+}
+
+model Inventory {
+  id        String  @id @default(cuid())
+  productId String
+  region    Region
+  quantity  Int     @default(0)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, region])
+}
+
+model ProductSpec {
+  id        String  @id @default(cuid())
+  productId String
+  key       String
+  value     String
+  unit      String?
+  sortOrder Int     @default(0)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+}
