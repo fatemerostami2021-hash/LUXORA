@@ -8,6 +8,7 @@ export const MenuIcon = (p: P) => <svg {...base(p)}><path d="M4 7h16M4 12h16M4 1
 export const ChevronDown = (p: P) => <svg {...base(p)}><path d="m6 9 6 6 6-6" /></svg>;
 export const SendIcon = (p: P) => <svg {...base(p)}><path d="M22 2 11 13" /><path d="M22 2 15 22l-4-9-9-4 20-7Z" /></svg>;
 export const ChatIcon = (p: P) => <svg {...base(p)}><path d="M21 12a8 8 0 0 1-11.7 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z" /></svg>;
+export const HeadsetIcon = (p: P) => <svg {...base(p)}><path d="M4 14v-2a8 8 0 0 1 16 0v2" /><path d="M4 14h3v5H5a1 1 0 0 1-1-1zM20 14h-3v5h2a1 1 0 0 0 1-1z" /><path d="M17 19c0 1.7-1.8 3-4 3h-1" /></svg>;
 export const PhoneIcon = (p: P) => <svg {...base(p)}><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" /></svg>;
 export const InstagramIcon = (p: P) => <svg {...base(p)}><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none" /></svg>;
 export const TelegramIcon = (p: P) => <svg {...base(p)}><path d="M21.5 4.5 2.8 11.7c-.8.3-.8 1.4 0 1.7l4.6 1.5 1.8 5.5c.2.7 1.1.9 1.6.3l2.6-2.7 4.7 3.5c.6.4 1.4.1 1.6-.6L23 5.8c.2-.9-.7-1.6-1.5-1.3Z" /><path d="m7.4 14.9 10.3-6.4" /></svg>;

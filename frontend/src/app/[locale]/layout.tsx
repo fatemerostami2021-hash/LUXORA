@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: { default: `LUXORA — ${t.tagline}`, template: "%s | LUXORA" },
     description: t.home.heroText,
-    alternates: { languages: { en: "/en", fa: "/fa" } },
+    alternates: { languages: { en: "/en", fa: "/fa", ar: "/ar" } },
   };
 }
 

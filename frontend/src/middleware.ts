@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const locales = ["en", "fa"];
+const locales = ["en", "fa", "ar"];
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -13,7 +13,7 @@ export function middleware(req: NextRequest) {
   }
   const saved = req.cookies.get("NEXT_LOCALE")?.value;
   const accept = (req.headers.get("accept-language") ?? "").toLowerCase();
-  const locale = saved && locales.includes(saved) ? saved : accept.startsWith("fa") ? "fa" : "en";
+  const locale = saved && locales.includes(saved) ? saved : accept.startsWith("fa") ? "fa" : accept.startsWith("ar") ? "ar" : "en";
   const url = req.nextUrl.clone();
   url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
   return NextResponse.redirect(url);

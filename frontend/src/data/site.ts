@@ -6,7 +6,7 @@ export const SITE = {
   email: "hello@luxora.example",
   social: {
     instagram: "https://instagram.com/",
-    telegram: "https://t.me/",
+    telegram: "https://t.me/fitness_mindset",
     whatsapp: "https://wa.me/989000000000",
     linkedin: "https://www.linkedin.com/",
   },

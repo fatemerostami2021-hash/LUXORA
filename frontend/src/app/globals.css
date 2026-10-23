@@ -17,6 +17,7 @@
   --font-sans: "Inter Variable", "Vazirmatn Variable", system-ui, sans-serif;
   --font-display: "Cormorant Garamond Variable", "Times New Roman", serif;
   --story-a: #fff4ea; --story-b: #f6dcc8; --story-c: #e8c0aa;
+  --checker-a: rgba(209, 46, 114, .035); --checker-b: rgba(232, 163, 61, .025);
   --hdr-h: 4.5rem;
 }
 [data-theme="dark"] {
@@ -28,6 +29,7 @@
   --ft-bg: #070605; --ft-fg: #fff4d6; --ft-muted: #d6c8a2; --ft-line: rgba(242, 207, 107, .22);
   --hair-a: #f7e6a8; --hair-b: #c9962b;
   --story-a: #3a2a1c; --story-b: #1a120b; --story-c: #0b0806;
+  --checker-a: rgba(242, 207, 107, .045); --checker-b: rgba(255, 244, 214, .02);
   --logo-a: #f7e6a8; --logo-b: #b8891f; --logo-bg: #17140f; --logo-skin-a: #f6dcc3; --logo-skin-b: #e2b890;
   --logo-ink: #1a120a; --logo-lip: #c0505f; --logo-spark: #fff1b8;
 }
@@ -35,7 +37,7 @@ html[dir="rtl"] { --font-sans: "Vazirmatn Variable", "Inter Variable", system-ui
 html { color-scheme: light; scroll-behavior: smooth; overflow-x: clip; max-width: 100%; -webkit-text-size-adjust: 100%; }
 html.menu-open { overflow: hidden; }
 html[data-theme="dark"] { color-scheme: dark; }
-body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; overflow-x: clip; max-width: 100%; -webkit-tap-highlight-color: transparent; }
+body { background-color: var(--bg); background-image: linear-gradient(45deg, var(--checker-a) 25%, transparent 25%, transparent 75%, var(--checker-a) 75%), linear-gradient(45deg, var(--checker-b) 25%, transparent 25%, transparent 75%, var(--checker-b) 75%); background-position: 0 0, 10px 10px; background-size: 20px 20px; color: var(--fg); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; overflow-x: clip; max-width: 100%; -webkit-tap-highlight-color: transparent; }
 img, svg, video, canvas { max-width: 100%; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
@@ -197,7 +199,9 @@ html[dir="rtl"] .mnav-pref-k { letter-spacing: 0; text-transform: none; font-siz
 .story-pin { position: relative; height: calc(100vh - 6rem); height: calc(100svh - 6rem); min-height: 540px; overflow: hidden; contain: layout paint; }
 .story-bg { position: absolute; inset: 0; background: radial-gradient(60% 58% at 50% 46%, var(--story-a) 0%, var(--story-b) 58%, var(--story-c) 100%); }
 .story-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 70%, var(--bg)); opacity: .55; }
-.story-canvas { position: absolute; inset: 0; opacity: 0; animation: story-in 1.2s .1s ease forwards; }
+.story-reference { position: absolute; inset: 0; z-index: 0; object-fit: cover; opacity: .18; mix-blend-mode: soft-light; filter: saturate(1.08) contrast(1.03); transform: scale(1.03); animation: reference-drift 16s ease-in-out infinite alternate; }
+@keyframes reference-drift { to { transform: scale(1.08) translate3d(0, -1%, 0); } }
+.story-canvas { position: absolute; inset: 0; z-index: 1; opacity: 0; animation: story-in 1.2s .1s ease forwards; }
 @keyframes story-in { to { opacity: 1; } }
 .story-fallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
 .story-text { position: absolute; inset: 0; pointer-events: none; }

@@ -17,8 +17,8 @@ export default function Header({ locale, t }: { locale: Locale; t: Dict }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<number | null>(null);
   const closeTimer = useRef<number | undefined>(undefined);
-  const other: Locale = locale === "en" ? "fa" : "en";
-  const rest = pathname.replace(/^\/(en|fa)(?=\/|$)/, "") || "";
+  const other: Locale = locale === "en" ? "fa" : locale === "fa" ? "ar" : "en";
+  const rest = pathname.replace(/^\/(en|fa|ar)(?=\/|$)/, "") || "";
   // Plain <a> (full page load) for the language switch: it resets the <html lang/dir> and every animation cleanly.
   const switchHref = `/${other}${rest}`;
 
@@ -77,7 +77,7 @@ export default function Header({ locale, t }: { locale: Locale; t: Dict }) {
             <button type="button" className="icon-btn" aria-label={t.nav.search} onClick={() => setSearchOpen(true)}><SearchIcon width={18} height={18} /></button>
             <span className="hidden lg:block">
             <a href={switchHref} hrefLang={other} lang={other} aria-label={t.nav.language} className="icon-btn !w-auto px-4 text-sm font-bold">
-              {other === "fa" ? "فارسی" : "EN"}
+              {other === "fa" ? "فارسی" : other === "ar" ? "العربية" : "EN"}
             </a>
             </span>
             <span className="hidden lg:block"><ThemeToggle label={t.nav.theme} /></span>
@@ -139,7 +139,7 @@ export default function Header({ locale, t }: { locale: Locale; t: Dict }) {
             </ul>
             <div className="mnav-prefs" role="group" aria-label={t.nav.prefs}>
               <a href={switchHref} hrefLang={other} lang={other} className="mnav-pref" aria-label={t.nav.language}>
-                <span className="mnav-pref-k">{t.nav.langWord}</span><span className="mnav-pref-v">{other === "fa" ? "فارسی" : "English"}</span>
+                <span className="mnav-pref-k">{t.nav.langWord}</span><span className="mnav-pref-v">{other === "fa" ? "فارسی" : other === "ar" ? "العربية" : "English"}</span>
               </a>
               <div className="mnav-pref"><span className="mnav-pref-k">{t.nav.themeWord}</span><ThemeToggle label={t.nav.theme} /></div>
             </div>

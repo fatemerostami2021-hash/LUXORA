@@ -16,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true }); // stops the pinned stage jumping when the mobile URL bar shows/hides
 
 type Hero = Dict["home"]["hero"];
-const SCROLL_VH = 5.4; // scroll distance of the whole story, in viewport heights
+const SCROLL_VH = 3.8; // compact story: reach the final pedestal before the footer
 
 // One pinned stage: a WebGL canvas (real 3D objects) + four DOM text blocks, all driven by ONE scrubbed GSAP timeline.
 export default function HeroStage({ t, locale }: { t: Hero; locale: Locale }) {
@@ -170,9 +170,10 @@ export default function HeroStage({ t, locale }: { t: Hero; locale: Locale }) {
   const shop = `/${locale}/shop`;
   return (
     <section ref={wrap} className="story" data-mode={mode} aria-label={t.alt}>
-      <div ref={pin} className="story-pin">
-        <div className="story-bg" aria-hidden />
-        <div ref={host} className="story-canvas" aria-hidden />
+        <div ref={pin} className="story-pin">
+          <div className="story-bg" aria-hidden />
+          <Image src="/images/hero/luxora-animation-reference.png" alt="" fill priority sizes="100vw" className="story-reference" aria-hidden="true" />
+          <div ref={host} className="story-canvas" aria-hidden />
         {mode === "fallback" && <Image {...IMG.categories_tools_pedestals} alt="" priority sizes="100vw" className="story-fallback" />}
         <div className="story-text">
           {t.stages.map((s, i) => (

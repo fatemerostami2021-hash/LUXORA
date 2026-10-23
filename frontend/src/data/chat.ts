@@ -19,9 +19,16 @@ export const CHAT_TEXT = {
     fallback: "پاسخ دقیقی پیدا نکردم، ولی تیم ما با کمال میل شخصاً کمکت می‌کند. در واتساپ پیام بده یا تماس بگیر.",
     suggestions: "سؤال‌های پرتکرار", typing: "در حال نوشتن…", wa: "گفتگو در واتساپ", call: "تماس با ما",
   },
+  ar: {
+    title: "مساعد LUXORA للجمال", online: "متصل الآن", placeholder: "اكتبي سؤالكِ…", send: "إرسال",
+    open: "فتح المحادثة", close: "إغلاق المحادثة", social: "تواصلي معنا",
+    welcome: "مرحباً، أنا مساعد LUXORA للجمال. اسأليني عن أدوات التصفيف أو الشحن أو طلبكِ.",
+    fallback: "لم أجد إجابة دقيقة، لكن فريقنا سعيد بمساعدتكِ عبر واتساب أو الهاتف.",
+    suggestions: "أسئلة شائعة", typing: "يكتب الآن…", wa: "الدردشة عبر واتساب", call: "اتصلي بنا",
+  },
 } as const;
 
-export const QUICK: Record<Locale, number[]> = { en: [2, 8, 16, 19, 20, 30], fa: [2, 8, 16, 19, 20, 30] };
+export const QUICK: Record<Locale, number[]> = { en: [2, 8, 16, 19, 20, 30], fa: [2, 8, 16, 19, 20, 30], ar: [2, 8, 16, 19, 20, 30] };
 
 const en: QA[] = [
   { q: "Hello", a: "Hello and welcome to LUXORA! How can I help you look and feel your best today?", k: ["hello", "hi", "hey", "good morning", "good evening"] },
@@ -128,8 +135,9 @@ const fa: QA[] = [
   { q: "سرپیچ‌ها را چطور استفاده کنم؟", a: "دستگاه را خاموش کن و بگذار خنک شود، بعد سرپیچ دلخواه را جا بزن. بشکه‌ی فر موج می‌سازد، برس گرد حجم می‌دهد و برس صاف‌کننده حالت براق و مرتب. همیشه دفترچه‌ی سازنده را دنبال کن.", k: ["طرز استفاده", "چطور استفاده", "نحوه استفاده", "راهنما", "آموزش", "دفترچه"] },
   { q: "ممنون!", a: "خواهش می‌کنم! روز قشنگی داشته باشی. هر وقت لازم بود اینجام.", k: ["ممنون", "مرسی", "متشکر", "خداحافظ", "ممنونم", "دمت گرم", "عالی"] },
 ];
-
-export const QA_DATA: Record<Locale, QA[]> = { en, fa };
+// Arabic UI is ready now; reuse the complete safe FAQ set until Arabic-specific answers are expanded.
+const ar: QA[] = fa;
+export const QA_DATA: Record<Locale, QA[]> = { en, fa, ar };
 
 const norm = (s: string) =>
   s.toLowerCase()

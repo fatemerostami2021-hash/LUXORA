@@ -3,21 +3,15 @@ import type { Dict, Locale } from "@/lib/i18n";
 import { SITE } from "@/data/site";
 import HairLazy from "./HairLazy";
 import Logo, { Wordmark } from "./Logo";
-import { InstagramIcon, LinkedinIcon, PhoneIcon, TelegramIcon, WhatsAppIcon } from "./Icons";
+import { PhoneIcon } from "./Icons";
 
 export default function Footer({ locale, t }: { locale: Locale; t: Dict }) {
   const f = t.footer;
   const shop = `/${locale}/shop`;
-  const socials = [
-    { href: SITE.social.instagram, label: "Instagram", Icon: InstagramIcon },
-    { href: SITE.social.telegram, label: "Telegram", Icon: TelegramIcon },
-    { href: SITE.social.whatsapp, label: "WhatsApp", Icon: WhatsAppIcon },
-    { href: SITE.social.linkedin, label: "LinkedIn", Icon: LinkedinIcon },
-  ];
   return (
     <footer className="site-footer page-layer">
       <HairLazy />
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-5 pb-10 pt-56 sm:pt-64 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+        <div className="relative mx-auto grid max-w-7xl gap-6 px-5 pb-6 pt-10 sm:pt-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <div className="flex items-center gap-3">
             <Logo size={48} />
@@ -25,11 +19,6 @@ export default function Footer({ locale, t }: { locale: Locale; t: Dict }) {
           </div>
           <p className="mt-4 max-w-xs text-sm" style={{ color: "var(--ft-muted)" }}>{f.about}</p>
           <p className="mt-4 text-sm font-bold" style={{ color: "var(--accent-2)" }}>{f.hairNote}</p>
-          <div className="mt-5 flex gap-2.5">
-            {socials.map(({ href, label, Icon }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} title={label} className="social-btn"><Icon width={20} height={20} /></a>
-            ))}
-          </div>
         </div>
 
         <nav aria-label={f.explore}>

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { CHAT_TEXT, QA_DATA, QUICK, findAnswer } from "@/data/chat";
 import { SITE } from "@/data/site";
-import { ChatIcon, CloseIcon, InstagramIcon, LinkedinIcon, PhoneIcon, SendIcon, TelegramIcon, WhatsAppIcon } from "./Icons";
+import { ChatIcon, CloseIcon, HeadsetIcon, InstagramIcon, LinkedinIcon, PhoneIcon, SendIcon, TelegramIcon, WhatsAppIcon } from "./Icons";
 
 type Msg = { id: number; from: "bot" | "me"; text: string; cta?: boolean };
 
@@ -107,7 +107,7 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
         ))}
         <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label={open ? c.close : c.open}
           className="chat-fab relative grid h-14 w-14 place-items-center rounded-full">
-          {open ? <CloseIcon width={24} height={24} /> : <ChatIcon width={26} height={26} />}
+          {open ? <CloseIcon width={24} height={24} /> : <HeadsetIcon width={27} height={27} />}
           <span className="absolute end-0 top-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-400" />
         </button>
       </div>
