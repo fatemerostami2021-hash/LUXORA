@@ -12,7 +12,7 @@ export default function ThemeToggle({ label }: { label: string }) {
     setDark(!dark);
   };
   return (
-    <button onClick={toggle} aria-label={label} aria-pressed={dark} className="icon-btn" type="button">
+    <button onClick={toggle} aria-label={label} aria-pressed={dark} className="icon-btn theme-btn" type="button">
       {dark ? <SunIcon width={18} height={18} /> : <MoonIcon width={18} height={18} />}
     </button>
   );

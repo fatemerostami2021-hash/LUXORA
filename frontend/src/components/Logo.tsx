@@ -33,3 +33,13 @@ export default function Logo({ size = 44 }: { size?: number }) {
     </svg>
   );
 }
+
+// Typographic wordmark: high-contrast serif capitals, metallic gradient, letters rise in one by one (CSS only), hairline underneath.
+export function Wordmark({ sub = true }: { sub?: boolean }) {
+  return (
+    <span className="wordmark" dir="ltr" lang="en" aria-hidden>
+      <span className="wm-letters">{"LUXORA".split("").map((c, i) => <span key={i} className="wm-l" style={{ ["--i" as string]: i }}>{c}</span>)}</span>
+      {sub && <span className="wm-sub">HAIR TECHNOLOGY</span>}
+    </span>
+  );
+}

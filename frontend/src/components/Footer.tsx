@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Dict, Locale } from "@/lib/i18n";
 import { SITE } from "@/data/site";
 import HairLazy from "./HairLazy";
-import Logo from "./Logo";
+import Logo, { Wordmark } from "./Logo";
 import { InstagramIcon, LinkedinIcon, PhoneIcon, TelegramIcon, WhatsAppIcon } from "./Icons";
 
 export default function Footer({ locale, t }: { locale: Locale; t: Dict }) {
@@ -21,7 +21,7 @@ export default function Footer({ locale, t }: { locale: Locale; t: Dict }) {
         <div>
           <div className="flex items-center gap-3">
             <Logo size={48} />
-            <p className="brand-word" dir="ltr">LUXORA</p>
+            <Wordmark />
           </div>
           <p className="mt-4 max-w-xs text-sm" style={{ color: "var(--ft-muted)" }}>{f.about}</p>
           <p className="mt-4 text-sm font-bold" style={{ color: "var(--accent-2)" }}>{f.hairNote}</p>

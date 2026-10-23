@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Eyebrow } from "@/components/Section";
+import Kinetic from "@/components/Kinetic";
+import PageScene from "@/components/scene/PageSceneLazy";
 import { demoProducts } from "@/data/demo";
 import { IMG } from "@/data/images";
 import { getDict, isLocale } from "@/lib/i18n";
@@ -11,9 +13,11 @@ export default async function Shop({ params }: { params: Promise<{ locale: strin
   const t = getDict(locale);
   const s = t.shop;
   return (
+    <>
+    <PageScene variant="shop" locale={locale} />
     <div className="mx-auto max-w-7xl px-5 py-16">
       <Eyebrow>{s.eyebrow}</Eyebrow>
-      <h1 data-reveal="0" className="mt-4 max-w-3xl text-4xl md:text-6xl">{s.title}</h1>
+      <Kinetic as="h1" text={s.title} className="mt-4 max-w-3xl" immediate />
       <p data-reveal="0.1" className="mt-5 max-w-2xl text-muted">{s.intro}</p>
       <p className="mt-4 text-xs font-semibold text-accent">{t.common.preview}</p>
 
@@ -28,7 +32,7 @@ export default async function Shop({ params }: { params: Promise<{ locale: strin
         </aside>
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {demoProducts.map((p, i) => (
-            <li key={p.slug} data-reveal={(i % 3) * 0.08} className="card p-4">
+            <li key={p.slug} data-reveal={(i % 3) * 0.08} data-tilt className="card p-4">
               <Image {...IMG[p.image]} alt="" sizes="(min-width:1024px) 22vw, 45vw" className="aspect-square w-full rounded-xl object-cover" />
               <p className="mt-4 font-bold">{t.home.cats[p.category]}</p>
               <p className="text-xs text-muted">{s.demoNote}</p>
@@ -37,5 +41,6 @@ export default async function Shop({ params }: { params: Promise<{ locale: strin
         </ul>
       </div>
     </div>
+    </>
   );
 }

@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Eyebrow } from "@/components/Section";
-import PartsJourney from "@/components/home/PartsJourney";
+import HeroStage from "@/components/hero/HeroStage";
+import Kinetic from "@/components/Kinetic";
 import { brandSlugs, categoryImages, demoProducts } from "@/data/demo";
 import { IMG } from "@/data/images";
 import { getDict, isLocale } from "@/lib/i18n";
@@ -17,36 +18,32 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <>
-      {/* 1. Hero */}
-      <section className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 md:grid-cols-2 md:py-20">
-        <div>
-          <Eyebrow>{t.tagline}</Eyebrow>
-          <h1 data-reveal="0" className="mt-5 text-5xl leading-[1.08] md:text-7xl">{h.heroTitle}</h1>
-          <p data-reveal="0.12" className="mt-6 max-w-xl text-lg text-muted">{h.heroText}</p>
-          <div data-reveal="0.24" className="mt-8 flex flex-wrap gap-3">
-            <Link href={shop} className="btn-primary">{h.ctaPrimary}</Link>
-            <Link href={shop} className="btn-ghost">{h.ctaSecondary}</Link>
-          </div>
-        </div>
-        <div data-reveal="0.1" className="card relative mx-auto aspect-square w-full max-w-xl overflow-hidden">
-          <div data-parallax="6" className="absolute inset-[-8%]">
-            <Image {...IMG.hero_model_blush} alt={h.alts.hero} priority sizes="(min-width:768px) 40vw, 90vw" className="h-full w-full object-cover dark:hidden" />
-            <Image {...IMG.hero_model_ivory} alt={h.alts.hero} priority sizes="(min-width:768px) 40vw, 90vw" className="hidden h-full w-full object-cover dark:block" />
-          </div>
-        </div>
+      {/* 1. Hero: pinned 3D story (device + attachments), five scroll stages, one GSAP timeline */}
+      <HeroStage t={h.hero} locale={locale} />
+
+      {/* 2. Journey copy (plain, accessible text; the old flat-image parts layer was replaced by the 3D hero) */}
+      <section aria-labelledby="journey-title" className="section-pad mx-auto max-w-5xl px-5 text-center">
+        <p className="eyebrow">{h.journey.eyebrow}</p>
+        <Kinetic as="h2" text={h.journey.title} className="mt-4" />
+        <p data-reveal="0.1" className="lede mx-auto mt-6 max-w-2xl text-muted">{h.journey.text}</p>
+        <ul className="mt-12 grid gap-4 md:grid-cols-3">
+          {h.journey.points.map((pt, i) => (
+            <li key={pt.head} data-reveal={i * 0.1} className="card p-6 text-center" data-tilt>
+              <p className="font-display text-2xl font-semibold text-accent" style={{ fontFamily: "var(--font-display)" }}>{pt.head}</p>
+              <p className="mt-2 text-sm text-muted">{pt.text}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
-      {/* 2. Parts travel with the scroll (fixed WebGL layer) and assemble here */}
-      <PartsJourney t={h.journey} />
-
       {/* 3. Categories */}
-      <section className="mx-auto max-w-7xl px-5 py-20">
-        <h2 data-reveal="0" className="text-3xl md:text-5xl">{h.catsTitle}</h2>
+      <section className="section-pad mx-auto max-w-7xl px-5">
+        <Kinetic as="h2" text={h.catsTitle} />
         <p data-reveal="0.1" className="mt-3 max-w-2xl text-muted">{h.catsText}</p>
         <ul className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-5">
           {h.cats.map((c, i) => (
             <li key={c} data-reveal={i * 0.08}>
-              <Link href={shop} className="card group relative block aspect-[3/4] overflow-hidden">
+              <Link href={shop} data-tilt className="card group relative block aspect-[3/4] overflow-hidden">
                 <Image src={IMG[categoryImages[i]].src} alt="" fill sizes="(min-width:768px) 20vw, 45vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent p-4 text-base font-bold text-white">{c}</span>
               </Link>
@@ -56,9 +53,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       {/* 4. Attachments (from the concept board) */}
-      <section className="mx-auto max-w-7xl px-5 py-20">
+      <section className="section-pad mx-auto max-w-7xl px-5">
         <Eyebrow>{h.attachments.eyebrow}</Eyebrow>
-        <h2 data-reveal="0" className="mt-3 text-3xl md:text-5xl">{h.attachments.title}</h2>
+        <Kinetic as="h2" text={h.attachments.title} className="mt-3" />
         <p data-reveal="0.1" className="mt-3 max-w-2xl text-muted">{h.attachments.text}</p>
         <div className="mt-10 grid gap-4 md:grid-cols-[1.7fr_1fr]">
           <div data-reveal="0" className="card overflow-hidden"><Image {...IMG.attachments_lineup} alt={h.attachments.lineupAlt} sizes="(min-width:768px) 55vw, 95vw" className="h-full w-full object-cover" /></div>
@@ -66,7 +63,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
         <ul className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-5">
           {h.attachments.items.map((it, i) => (
-            <li key={it.name} data-reveal={i * 0.07} className="card overflow-hidden">
+            <li key={it.name} data-reveal={i * 0.07} data-tilt className="card overflow-hidden">
               <Image {...IMG[tiles[i]]} alt="" sizes="(min-width:768px) 18vw, 45vw" className="aspect-[9/10] w-full object-cover" />
               <div className="p-4"><p className="font-bold">{it.name}</p><p className="mt-1 text-sm text-muted">{it.text}</p></div>
             </li>
@@ -75,12 +72,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       {/* 5. Featured (demo) */}
-      <section className="mx-auto max-w-7xl px-5 py-20">
-        <h2 data-reveal="0" className="text-3xl md:text-5xl">{h.featTitle}</h2>
+      <section className="section-pad mx-auto max-w-7xl px-5">
+        <Kinetic as="h2" text={h.featTitle} />
         <p data-reveal="0.1" className="mt-3 max-w-2xl text-muted">{h.featText}</p>
         <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {demoProducts.slice(0, 3).map((p, i) => (
-            <li key={p.slug} data-reveal={i * 0.1} className="card p-4">
+            <li key={p.slug} data-reveal={i * 0.1} data-tilt className="card p-4">
               <Image {...IMG[p.image]} alt="" sizes="(min-width:1024px) 30vw, 90vw" className="aspect-square w-full rounded-xl object-cover" />
               <p className="mt-4 font-bold">{h.cats[p.category]}</p>
               <p className="text-xs text-muted">{t.shop.demoProduct}</p>
@@ -90,8 +87,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       {/* 6. Brands */}
-      <section className="mx-auto max-w-7xl px-5 py-20">
-        <h2 data-reveal="0" className="text-3xl md:text-5xl">{h.brandsTitle}</h2>
+      <section className="section-pad mx-auto max-w-7xl px-5">
+        <Kinetic as="h2" text={h.brandsTitle} />
         <p data-reveal="0.1" className="mt-3 max-w-2xl text-muted">{h.brandsText}</p>
         <ul className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
           {t.brands.items.map((b, i) => (
@@ -103,10 +100,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       {/* 7. Editorial */}
-      <section className="mx-auto max-w-7xl px-5 py-20">
+      <section className="section-pad mx-auto max-w-7xl px-5">
         <div className="card grid items-center gap-10 overflow-hidden p-8 md:grid-cols-2 md:p-14">
           <div>
-            <h2 data-reveal="0" className="text-3xl md:text-5xl">{h.editTitle}</h2>
+            <Kinetic as="h2" text={h.editTitle} />
             <p data-reveal="0.1" className="mt-4 max-w-xl text-muted">{h.editText}</p>
             <Link data-reveal="0.2" href={`/${locale}/about`} className="btn-ghost mt-8">{h.editCta}</Link>
           </div>
@@ -122,7 +119,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <Image {...IMG.categories_tools_pedestals} alt={h.alts.tools} sizes="90vw" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black/55" />
         <div className="relative mx-auto max-w-3xl px-5 py-24 text-center text-white">
-          <h2 data-reveal="0" className="text-4xl md:text-6xl">{h.finalTitle}</h2>
+          <Kinetic as="h2" text={h.finalTitle} className="text-white [&_.kin-em]:!text-[var(--accent-2)]" />
           <p data-reveal="0.1" className="mt-4 text-white/80">{h.finalText}</p>
           <Link data-reveal="0.2" href={shop} className="btn-primary mt-8">{h.finalCta}</Link>
         </div>

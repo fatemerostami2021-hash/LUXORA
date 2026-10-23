@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { Eyebrow } from "@/components/Section";
+import Kinetic from "@/components/Kinetic";
+import PageScene from "@/components/scene/PageSceneLazy";
 import { getDict, isLocale } from "@/lib/i18n";
 
 export default async function Contact({ params }: { params: Promise<{ locale: string }> }) {
@@ -8,14 +10,16 @@ export default async function Contact({ params }: { params: Promise<{ locale: st
   const c = getDict(locale).contact;
   const input = "mt-1 w-full rounded-xl border border-line bg-surface px-4 py-3";
   return (
+    <>
+    <PageScene variant="contact" locale={locale} />
     <div className="mx-auto max-w-5xl px-5 py-16">
       <Eyebrow>{c.eyebrow}</Eyebrow>
-      <h1 className="mt-4 max-w-3xl text-4xl md:text-5xl">{c.title}</h1>
+      <Kinetic as="h1" text={c.title} className="mt-4 max-w-3xl" immediate />
       <p className="mt-5 max-w-2xl text-muted">{c.intro}</p>
 
       <div className="mt-12 grid gap-12 md:grid-cols-2">
         <form className="space-y-4" aria-describedby="form-note">
-          <h2 className="text-2xl font-bold">{c.formTitle}</h2>
+          <Kinetic as="h2" text={c.formTitle} className="display-sm" />
           <p className="text-sm text-muted">{c.formText}</p>
           <label className="block text-sm">{c.fields.name}<input name="name" autoComplete="name" className={input} /></label>
           <label className="block text-sm">{c.fields.email}<input name="email" type="email" autoComplete="email" className={input} /></label>
@@ -26,7 +30,7 @@ export default async function Contact({ params }: { params: Promise<{ locale: st
           <p id="form-note" className="text-xs text-accent">{c.notConnected}</p>
         </form>
         <div>
-          <h2 className="text-2xl font-bold">{c.faqTitle}</h2>
+          <Kinetic as="h2" text={c.faqTitle} className="display-sm" />
           <div className="mt-4 divide-y divide-line border-y border-line">
             {c.faq.map((f) => (
               <details key={f.q} className="py-4">
@@ -38,5 +42,6 @@ export default async function Contact({ params }: { params: Promise<{ locale: st
         </div>
       </div>
     </div>
+    </>
   );
 }

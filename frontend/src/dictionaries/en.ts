@@ -1,15 +1,24 @@
 export const en = {
   tagline: "THE ART OF HAIR TECHNOLOGY",
   announcement: "Elevate Your Routine. Experience the Extraordinary.",
-  nav: { main: "Main navigation", shop: "Shop", brands: "Brands", about: "About", contact: "Contact", theme: "Toggle light/dark theme", menu: "Open menu", search: "Search", language: "Switch language", skip: "Skip to content", shopMenu: "Shop menu" },
+  nav: { main: "Main navigation", shop: "Shop", brands: "Brands", about: "About", contact: "Contact", theme: "Toggle light/dark theme", menu: "Open menu", close: "Close menu", menuWord: "Menu", prefs: "Preferences", langWord: "Language", themeWord: "Theme", search: "Search", language: "Switch language", skip: "Skip to content", shopMenu: "Shop menu" },
   common: { preview: "Phase 1 preview: demo content, not connected to real data yet." },
   home: {
     heroTitle: "Your Hair. Your Signature.",
     heroText: "Discover a new dimension of hair styling with innovative tools designed to elevate your everyday routine. Explore exceptional technology, refined design, and professional-quality results.",
     ctaPrimary: "Discover the Collection", ctaSecondary: "Explore Bestsellers",
     heroVisual: "3D product scene placeholder (Phase 3)",
+    hero: {
+      alt: "LUXORA hair styling system: the main device with its attachments, shown in a scroll-driven 3D scene", cue: "Scroll", loading: "Preparing the 3D scene",
+      stages: [
+        { eyebrow: "The next generation", lines: ["THE ART OF", "*HAIR* TECHNOLOGY"], text: "Effortless styling. Intelligent innovation. Extraordinary results." },
+        { eyebrow: "In motion", lines: ["DESIGNED TO MOVE.", "*ENGINEERED* TO PERFORM."] },
+        { eyebrow: "Precision", lines: ["EVERY DETAIL", "FINDS *ITS PLACE.*"] },
+        { eyebrow: "The complete set", lines: ["BEAUTY MEETS", "*INNOVATION.*"], text: "Precision engineering. Effortless styling. Timeless design.", cta: "Discover the Collection", cta2: "Our Story" },
+      ],
+    },
     journey: {
-      eyebrow: "The Art of Radiance", title: "Every Woman Has a Look Only She Can Wear.",
+      eyebrow: "The Art of Radiance", title: "Every Woman Has a *Look* Only She Can Wear.",
       text: "Beauty is not about becoming someone else. It is the quiet confidence of a style that feels like you: soft waves in the morning light, a sleek finish for an evening out, a glow that tells the world you are ready. Choose the tools that let your own beauty speak first.",
       points: [
         { head: "Confidence", text: "The right style changes how you carry yourself, and how the day carries you." },
@@ -19,7 +28,7 @@ export const en = {
       alt: "Parts of a hair styling tool floating across the page as you scroll",
     },
     attachments: {
-      eyebrow: "Attachments", title: "One Tool. Endless Looks.",
+      eyebrow: "Attachments", title: "One Tool. *Endless* Looks.",
       text: "Interchangeable attachments let you move between curls, volume and smooth finishes.",
       items: [
         { name: "Curling Barrel", text: "For defined curls and waves" },
@@ -34,22 +43,22 @@ export const en = {
       hero: "Model with glossy, voluminous waves", tools: "Hair dryer, curling tools and straightener on stone pedestals",
       products: "Hair care and styling products", giftSet: "Luxury gift set in a cream box with ribbon",
     },
-    catsTitle: "Find Your Perfect Styling Tool",
+    catsTitle: "Find Your *Perfect* Styling Tool",
     catsText: "From effortless waves to sleek, polished finishes, discover the tools that bring your vision to life.",
     cats: ["Multi-Stylers", "Hair Dryers", "Straighteners", "Curling Tools", "Brushes & Accessories"],
-    featTitle: "The Icons of Hair Styling",
+    featTitle: "The *Icons* of Hair Styling",
     featText: "Discover carefully selected tools that combine intelligent technology, exceptional performance, and timeless design.",
-    brandsTitle: "Innovation, From the World's Leading Names",
+    brandsTitle: "*Innovation,* From the World's Leading Names",
     brandsText: "Explore a curated collection of hair styling technology from renowned brands, chosen for their design, performance, and innovation.",
-    editTitle: "More Than Styling. A Ritual.",
+    editTitle: "More Than Styling. A *Ritual.*",
     editText: "Transform your daily routine into a moment of self-expression. Discover tools that help you create your signature look with confidence.",
     editCta: "Explore the Edit",
-    finalTitle: "Your Next Great Hair Day Starts Here.",
+    finalTitle: "Your Next *Great* Hair Day Starts Here.",
     finalText: "Find the tools that inspire your style and redefine the way you get ready.",
     finalCta: "Shop All Styling Tools",
   },
   shop: {
-    eyebrow: "The Collection", title: "Find the Tools That Define Your Style.",
+    eyebrow: "The Collection", title: "Find the Tools That Define *Your Style.*",
     intro: "Explore our curated selection of hair styling essentials, from advanced multi-stylers to precision straighteners and powerful hair dryers. Discover technology designed to complement your routine and bring your styling ideas to life.",
     filtersTitle: "Filters", filters: ["Category", "Brand", "Price", "Product Type", "Key Features", "Availability"],
     sortTitle: "Sort By", sort: ["Featured", "Best Selling", "New Arrivals", "Price: Low to High", "Price: High to Low"],
@@ -57,7 +66,7 @@ export const en = {
     emptyTitle: "No products found.", emptyText: "Try adjusting your filters to discover more of the collection.",
   },
   brands: {
-    eyebrow: "The Brands", title: "Discover the Names Shaping Modern Hair Styling.",
+    eyebrow: "The Brands", title: "Discover the Names Shaping *Modern* Hair Styling.",
     intro: "Explore a world of hair technology through a curated selection of internationally recognized brands. From intelligent styling systems to professional tools, discover different approaches to performance, design, and personal expression.",
     items: [
       { name: "Dyson", head: "Engineering Meets Beauty.", text: "Explore innovative hair care and styling tools developed with a focus on engineering, performance, and design." },
@@ -69,7 +78,7 @@ export const en = {
     note: "Brand names identify products only. Descriptions must be checked against each manufacturer's approved information before launch.",
   },
   about: {
-    eyebrow: "About LUXORA", title: "Beauty, Elevated by Technology.",
+    eyebrow: "About LUXORA", title: "Beauty, *Elevated* by Technology.",
     paragraphs: [
       "At LUXORA, we believe that the right tools can transform more than your hairstyle. They can transform the way you feel about your daily routine.",
       "Our vision is to bring together thoughtfully selected hair styling technology, refined design, and a seamless shopping experience.",
@@ -86,7 +95,7 @@ export const en = {
     signoff: "LUXORA — The Art of Hair Technology.",
   },
   contact: {
-    eyebrow: "We're Here to Help", title: "Exceptional Experiences Start with Thoughtful Support.",
+    eyebrow: "We're Here to Help", title: "Exceptional *Experiences* Start with Thoughtful Support.",
     intro: "Whether you need help choosing a styling tool, understanding product features, or checking an order, our support team is here to help you make an informed decision.",
     formTitle: "Contact Us", formText: "Have a question? Send us a message and we'll guide you in the right direction.",
     fields: { name: "Full Name", email: "Email Address", order: "Order Number (Optional)", subject: "Subject", message: "Your Message" },

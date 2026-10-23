@@ -32,8 +32,21 @@ export default function ScrollEffects() {
         });
       });
     });
+    // 3D tilt on cards (mouse only, desktop): opt in with data-tilt
+    const tiltCleanups: (() => void)[] = [];
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      gsap.utils.toArray<HTMLElement>("[data-tilt]").forEach((el) => {
+        const rx = gsap.quickTo(el, "rotationX", { duration: 0.5, ease: "power3.out" });
+        const ry = gsap.quickTo(el, "rotationY", { duration: 0.5, ease: "power3.out" });
+        gsap.set(el, { transformPerspective: 900 });
+        const move = (e: PointerEvent) => { const r = el.getBoundingClientRect(); ry(((e.clientX - r.left) / r.width - 0.5) * 9); rx(-((e.clientY - r.top) / r.height - 0.5) * 9); };
+        const leave = () => { rx(0); ry(0); };
+        el.addEventListener("pointermove", move); el.addEventListener("pointerleave", leave);
+        tiltCleanups.push(() => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); });
+      });
+    }
     const t = window.setTimeout(() => ScrollTrigger.refresh(), 400);
-    return () => { window.clearTimeout(t); ctx.revert(); };
+    return () => { window.clearTimeout(t); tiltCleanups.forEach((f) => f()); ctx.revert(); };
   }, [pathname]);
   return null;
 }
