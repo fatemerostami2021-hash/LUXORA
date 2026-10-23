@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Dict, Locale } from "@/lib/i18n";
 import { MEGA } from "@/data/mega";
+import { getExternalHref } from "@/data/externalLinks";
 import Logo, { Wordmark } from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import SearchPanel from "./SearchPanel";
@@ -96,9 +97,10 @@ export default function Header({ locale, t }: { locale: Locale; t: Dict }) {
                 <div key={g.title}>
                   <p className="label-caps text-accent">{g.title}</p>
                   <ul className="mt-3">
-                    {g.items.map((it) => (
-                      <li key={it}><Link href={`${shopHref}?q=${encodeURIComponent(it)}`} className="mega-link" onClick={() => setMegaOpen(false)}>{it}</Link></li>
-                    ))}
+                    {g.items.map((it) => {
+                      const external = getExternalHref(it);
+                      return <li key={it}>{external ? <a href={external} target="_blank" rel="noopener noreferrer" className="mega-link">{it}</a> : <Link href={`${shopHref}?q=${encodeURIComponent(it)}`} className="mega-link" onClick={() => setMegaOpen(false)}>{it}</Link>}</li>;
+                    })}
                   </ul>
                 </div>
               ))}
@@ -128,7 +130,7 @@ export default function Header({ locale, t }: { locale: Locale; t: Dict }) {
                     {mega.groups.map((g, i) => (
                       <div key={g.title}>
                         <button type="button" className="flex w-full items-center justify-between py-2.5 text-sm font-bold text-accent" aria-expanded={mobileGroup === i} onClick={() => setMobileGroup(i)}>{g.title}</button>
-                        {mobileGroup === i && <ul className="pb-2 ps-3">{g.items.map((it) => <li key={it}><Link href={`${shopHref}?q=${encodeURIComponent(it)}`} className="block py-2 text-base">{it}</Link></li>)}</ul>}
+                        {mobileGroup === i && <ul className="pb-2 ps-3">{g.items.map((it) => { const external = getExternalHref(it); return <li key={it}>{external ? <a href={external} target="_blank" rel="noopener noreferrer" className="block py-2 text-base">{it}</a> : <Link href={`${shopHref}?q=${encodeURIComponent(it)}`} className="block py-2 text-base">{it}</Link>}</li>; })}</ul>}
                       </div>
                     ))}
                     <Link href={shopHref} className="btn-primary mt-2 !h-11 text-sm">{mega.featuredCta}</Link>

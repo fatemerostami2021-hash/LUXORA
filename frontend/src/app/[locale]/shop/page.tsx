@@ -22,10 +22,10 @@ export default async function Shop({ params }: { params: Promise<{ locale: strin
       <p className="mt-4 text-xs font-semibold text-accent">{t.common.preview}</p>
 
       <div className="mt-10 grid gap-10 md:grid-cols-[240px_1fr]">
-        <aside aria-label={s.filtersTitle}>
+          <aside aria-label={s.filtersTitle}>
           <h2 className="label-caps">{s.filtersTitle}</h2>
           <ul className="mt-4 divide-y divide-line border-y border-line text-sm">
-            {s.filters.map((f) => <li key={f} className="py-3 text-muted">{f}</li>)}
+            {s.filters.map((f) => <li key={f} className="py-3 text-muted"><a href={`https://www.sephora.com/`} target="_blank" rel="noopener noreferrer" className="footer-link">{f}</a></li>)}
           </ul>
           <h2 className="label-caps mt-8">{s.sortTitle}</h2>
           <ul className="mt-3 space-y-2 text-sm text-muted">{s.sort.map((x) => <li key={x}>{x}</li>)}</ul>
@@ -35,7 +35,9 @@ export default async function Shop({ params }: { params: Promise<{ locale: strin
             <li key={p.slug} data-reveal={(i % 3) * 0.08} data-tilt className="card p-4">
               <Image {...IMG[p.image]} alt="" sizes="(min-width:1024px) 22vw, 45vw" className="aspect-square w-full rounded-xl object-cover" />
               <p className="mt-4 font-bold">{t.home.cats[p.category]}</p>
+              <p className="mt-2 text-lg font-extrabold text-accent">{s.priceLabel}: ${p.price.toLocaleString()} {s.currency}</p>
               <p className="text-xs text-muted">{s.demoNote}</p>
+              <a href={p.externalUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost mt-4 !h-10 !px-4 text-xs">{locale === "en" ? "View official site" : locale === "ar" ? "زيارة الموقع الرسمي" : "مشاهده سایت رسمی"}</a>
             </li>
           ))}
         </ul>

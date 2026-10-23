@@ -62,7 +62,7 @@ export const en = {
     intro: "Explore our curated selection of hair styling essentials, from advanced multi-stylers to precision straighteners and powerful hair dryers. Discover technology designed to complement your routine and bring your styling ideas to life.",
     filtersTitle: "Filters", filters: ["Category", "Brand", "Price", "Product Type", "Key Features", "Availability"],
     sortTitle: "Sort By", sort: ["Featured", "Best Selling", "New Arrivals", "Price: Low to High", "Price: High to Low"],
-    demoProduct: "Demo product", demoNote: "Placeholder item. Real products, prices and stock arrive with the database.",
+    demoProduct: "Demo product", demoNote: "Reference price shown in USD; final availability and regional pricing are confirmed at checkout.", priceLabel: "Price", currency: "USD",
     emptyTitle: "No products found.", emptyText: "Try adjusting your filters to discover more of the collection.",
   },
   brands: {
@@ -92,7 +92,7 @@ export const en = {
     ],
     promiseTitle: "Our Promise",
     promise: "A considered collection. A refined experience. A more inspiring way to discover hair styling technology.",
-    signoff: "LUXORA — The Art of Hair Technology.",
+    signoff: "LUXORA — The Art of Hair Technology.", designerTitle: "The story behind this experience", designerText: "LUXORA is presented as a refined digital showroom for beauty technology, built to make discovery feel as considered as the products themselves.",
   },
   contact: {
     eyebrow: "We're Here to Help", title: "Exceptional *Experiences* Start with Thoughtful Support.",

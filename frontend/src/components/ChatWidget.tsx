@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { CHAT_TEXT, QA_DATA, QUICK, findAnswer } from "@/data/chat";
 import { SITE } from "@/data/site";
-import { ChatIcon, CloseIcon, HeadsetIcon, InstagramIcon, LinkedinIcon, PhoneIcon, SendIcon, TelegramIcon, WhatsAppIcon } from "./Icons";
+import { ChatIcon, CloseIcon, HeadsetIcon, InstagramIcon, LinkedinIcon, SendIcon, TelegramIcon, WhatsAppIcon } from "./Icons";
 
 type Msg = { id: number; from: "bot" | "me"; text: string; cta?: boolean };
 
@@ -41,7 +41,7 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <div className="fixed bottom-4 end-4 z-[60] flex flex-col items-end gap-3 sm:bottom-6 sm:end-6">
+    <div className="chat-widget fixed bottom-4 end-4 z-30 flex flex-col items-end gap-3 sm:bottom-6 sm:end-6">
       {open && (
         <section role="dialog" aria-label={c.title}
           className="card flex h-[min(34rem,calc(100vh-9rem))] w-[min(23rem,calc(100vw-2rem))] flex-col overflow-hidden !rounded-3xl">
@@ -53,6 +53,16 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
             </div>
             <button type="button" onClick={() => setOpen(false)} aria-label={c.close} className="grid h-8 w-8 place-items-center rounded-full bg-white/20"><CloseIcon width={16} height={16} /></button>
           </header>
+
+          <div className="flex items-center gap-2 border-b border-line px-4 py-3" aria-label={c.social}>
+            <span className="me-1 text-xs font-bold text-muted">{c.social}</span>
+            {socials.map(({ href, label, Icon }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} title={label}
+                className="icon-btn !h-9 !w-9" style={{ borderColor: "var(--line)", color: "var(--fg)" }}>
+                <Icon width={17} height={17} />
+              </a>
+            ))}
+          </div>
 
           <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4" aria-live="polite">
             {msgs.map((m) => (
@@ -97,20 +107,11 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
         </section>
       )}
 
-      {/* quick contact buttons (social + phone) */}
-      <div className="flex flex-col items-center gap-2">
-        {[...socials.map((s) => ({ ...s, tel: false })), { href: SITE.phoneHref, label: c.call, Icon: PhoneIcon, tel: true }].map(({ href, label, Icon, tel }) => (
-          <a key={label} href={href} aria-label={label} title={label} {...(tel ? {} : { target: "_blank", rel: "noopener noreferrer" })}
-            className="icon-btn !h-11 !w-11 bg-[var(--surface)] shadow-lg" style={{ borderColor: "var(--line)", color: "var(--fg)" }}>
-            <Icon width={20} height={20} />
-          </a>
-        ))}
-        <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label={open ? c.close : c.open}
-          className="chat-fab relative grid h-14 w-14 place-items-center rounded-full">
-          {open ? <CloseIcon width={24} height={24} /> : <HeadsetIcon width={27} height={27} />}
-          <span className="absolute end-0 top-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-400" />
-        </button>
-      </div>
+      <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label={open ? c.close : c.open}
+        className="chat-fab relative grid h-14 w-14 place-items-center rounded-full">
+        {open ? <CloseIcon width={24} height={24} /> : <HeadsetIcon width={27} height={27} />}
+        <span className="absolute end-0 top-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-400" />
+      </button>
     </div>
   );
 }

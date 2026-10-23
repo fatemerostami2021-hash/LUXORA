@@ -29,6 +29,10 @@ export default async function About({ params }: { params: Promise<{ locale: stri
       <Kinetic as="h2" text={a.promiseTitle} className="display-sm mt-16" />
       <p className="mt-3 text-lg">{a.promise}</p>
       <p className="mt-8 text-sm font-bold text-accent">{a.signoff}</p>
+      <section className="card mt-16 p-6 md:p-8" aria-labelledby="designer-story">
+        <p className="eyebrow">{a.designerTitle}</p>
+        <h2 id="designer-story" className="display-sm mt-3">{a.designerText}</h2>
+      </section>
       <Image {...IMG.editorial_gift_set} alt="" sizes="(min-width:768px) 50vw, 90vw" className="mt-10 w-full max-w-md rounded-3xl object-cover" />
     </div>
     </>

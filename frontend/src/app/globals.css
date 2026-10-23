@@ -179,7 +179,7 @@ html[dir="rtl"] .burger { letter-spacing: 0; text-transform: none; font-size: .9
 .burger.is-open .burger-bars i:nth-child(2) { opacity: 0; }
 .burger.is-open .burger-bars i:nth-child(3) { top: calc(50% - 1.25px); transform: rotate(-45deg); }
 @media (max-width: 380px) { .burger-word { display: none; } .burger { padding: 0 .9rem; } }
-.mobile-nav { position: absolute; top: 100%; inset-inline: 0; max-height: calc(100dvh - 7.2rem); overflow-y: auto; overscroll-behavior: contain; background: var(--hdr-bg); border-top: 1px solid var(--hdr-line); padding: .4rem 1.25rem 1.5rem; box-shadow: 0 40px 60px -30px rgba(0,0,0,.5); -webkit-overflow-scrolling: touch; animation: nav-in .35s cubic-bezier(.2,.8,.2,1); }
+.mobile-nav { position: absolute; top: 100%; inset-inline: 0; z-index: 50; max-height: calc(100dvh - 7.2rem); overflow-y: auto; overscroll-behavior: contain; background: var(--hdr-bg); border-top: 1px solid var(--hdr-line); padding: .4rem 1.25rem 1.5rem; box-shadow: 0 40px 60px -30px rgba(0,0,0,.5); -webkit-overflow-scrolling: touch; animation: nav-in .35s cubic-bezier(.2,.8,.2,1); }
 @keyframes nav-in { from { opacity: 0; transform: translateY(-10px); } }
 .mnav-row { display: flex; width: 100%; align-items: center; justify-content: space-between; padding: 1.05rem 0; font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; color: var(--hdr-fg); }
 html[dir="rtl"] .mnav-row { font-weight: 800; font-size: 1.35rem; }
