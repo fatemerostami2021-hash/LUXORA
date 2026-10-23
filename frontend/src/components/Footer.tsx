@@ -34,7 +34,7 @@ export default function Footer({ locale, t }: { locale: Locale; t: Dict }) {
             <li><Link href={`/${locale}/about`} className="footer-link">{t.nav.about}</Link></li>
             <li><Link href={`/${locale}/brands`} className="footer-link">{t.nav.brands}</Link></li>
             <li><Link href={`/${locale}/contact`} className="footer-link">{t.nav.contact}</Link></li>
-            <li><a href={SITE.designerUrl} target="_blank" rel="noopener noreferrer" className="footer-link">{locale === "en" ? "Site designer" : locale === "ar" ? "مصممة الموقع" : "طراح سایت"}</a></li>
+            <li><a href={SITE.designerUrl} target="_blank" rel="noopener noreferrer" className="footer-link">{locale === "en" ? "Fatemeh Rostami — Web Developer" : locale === "ar" ? "فاطمة رستمي — مطوّرة ويب" : "فاطمه رستمی — طراح سایت"}</a></li>
           </ul>
           <p className="label-caps mt-6" style={{ color: "var(--accent-2)" }}>{f.supportTitle}</p>
           <ul className="mt-4 space-y-2 text-sm">
