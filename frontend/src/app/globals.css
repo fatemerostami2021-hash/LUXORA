@@ -253,6 +253,11 @@ html[dir="rtl"] .story-cue { letter-spacing: 0; text-transform: none; font-size:
 @media (max-width: 767px) { .page-scene { opacity: .55; } }
 .card[data-tilt] { transform-style: preserve-3d; will-change: transform; }
 .card { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.image-frame { position: relative; aspect-ratio: 1 / 1; overflow: hidden; border-radius: .9rem; background: var(--accent-soft); transform: translateZ(0); }
+.image-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, rgba(255,255,255,.22), transparent 42%, rgba(0,0,0,.12)); mix-blend-mode: soft-light; }
+.image-frame img, .product-card img { transition: transform .8s cubic-bezier(.2,.8,.2,1), filter .8s ease; will-change: transform; }
+.product-card:hover img { transform: scale(1.06) rotate(.7deg); filter: saturate(1.08) contrast(1.04); }
+.product-card { transform-style: preserve-3d; }
 .section-pad { padding-block: clamp(3.5rem, 8vw, 7rem); }
 
 @media (prefers-reduced-motion: reduce) {

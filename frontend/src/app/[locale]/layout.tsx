@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import BrandRail from "@/components/BrandRail";
 import ChatWidget from "@/components/ChatWidget";
 import ScrollEffects from "@/components/ScrollEffects";
+import { StoreProvider } from "@/components/StoreProvider";
 import { getDict, getDir, isLocale, locales } from "@/lib/i18n";
 
 export const generateStaticParams = () => locales.map((locale) => ({ locale }));
@@ -38,14 +39,14 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={getDir(locale)} data-theme="light" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
-      <body>
+      <body><StoreProvider>
         <Header locale={locale} t={t} />
         <main id="main" className="page-layer">{children}</main>
         <BrandRail t={t.rail} />
         <Footer locale={locale} t={t} />
         <ChatWidget locale={locale} />
         <ScrollEffects />
-      </body>
+      </StoreProvider></body>
     </html>
   );
 }

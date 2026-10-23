@@ -31,6 +31,10 @@ export default function ScrollEffects() {
           scrollTrigger: { trigger: parent, start: "top bottom", end: "bottom top", scrub: true },
         });
       });
+      gsap.utils.toArray<HTMLImageElement>("main img").forEach((img) => {
+        const frame = img.closest<HTMLElement>(".image-frame, .card, section") || img;
+        gsap.fromTo(img, { scale: 1.08, opacity: 0.72 }, { scale: 1, opacity: 1, duration: 1.15, ease: "power3.out", scrollTrigger: { trigger: frame, start: "top 92%", once: true } });
+      });
     });
     // 3D tilt on cards (mouse only, desktop): opt in with data-tilt
     const tiltCleanups: (() => void)[] = [];

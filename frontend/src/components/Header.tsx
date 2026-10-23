@@ -45,6 +45,10 @@ export default function Header({ locale, t }: { locale: Locale; t: Dict }) {
   const closeSearch = useCallback(() => setSearchOpen(false), []);
 
   const shopHref = `/${locale}/shop`;
+  const accountHref = `/${locale}/account`;
+  const cartHref = `/${locale}/cart`;
+  const accountLabel = locale === "en" ? "Account" : locale === "ar" ? "الحساب" : "حساب کاربری";
+  const cartLabel = locale === "en" ? "Cart" : locale === "ar" ? "السلة" : "سبد خرید";
   const links = [
     { href: `/${locale}/brands`, label: t.nav.brands },
     { href: `/${locale}/about`, label: t.nav.about },
@@ -82,6 +86,8 @@ export default function Header({ locale, t }: { locale: Locale; t: Dict }) {
             </a>
             </span>
             <span className="hidden lg:block"><ThemeToggle label={t.nav.theme} /></span>
+            <Link href={accountHref} className="hidden rounded-full border border-[var(--hdr-line)] px-3 py-2 text-xs font-bold lg:block">{accountLabel}</Link>
+            <Link href={cartHref} className="hidden rounded-full border border-[var(--hdr-line)] px-3 py-2 text-xs font-bold lg:block">{cartLabel}</Link>
             <button type="button" className={`burger lg:hidden ${open ? "is-open" : ""}`} aria-expanded={open} aria-controls="mobile-nav" aria-label={open ? t.nav.close : t.nav.menu} onClick={() => setOpen(!open)}>
               <span className="burger-bars" aria-hidden><i /><i /><i /></span>
               <span className="burger-word">{t.nav.menuWord}</span>
@@ -138,6 +144,8 @@ export default function Header({ locale, t }: { locale: Locale; t: Dict }) {
                 )}
               </li>
               {links.map((l) => <li key={l.href} className="border-b border-[var(--hdr-line)]"><Link href={l.href} className="mnav-row" aria-current={pathname.startsWith(l.href) ? "page" : undefined}>{l.label}</Link></li>)}
+              <li className="border-b border-[var(--hdr-line)]"><Link href={accountHref} className="mnav-row">{accountLabel}</Link></li>
+              <li className="border-b border-[var(--hdr-line)]"><Link href={cartHref} className="mnav-row">{cartLabel}</Link></li>
             </ul>
             <div className="mnav-prefs" role="group" aria-label={t.nav.prefs}>
               <a href={switchHref} hrefLang={other} lang={other} className="mnav-pref" aria-label={t.nav.language}>

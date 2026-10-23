@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Eyebrow } from "@/components/Section";
 import Kinetic from "@/components/Kinetic";
 import PageScene from "@/components/scene/PageSceneLazy";
-import { demoProducts } from "@/data/demo";
+import ShopProducts from "@/components/ShopProducts";
 import { IMG } from "@/data/images";
 import { getDict, isLocale } from "@/lib/i18n";
 
@@ -30,17 +30,7 @@ export default async function Shop({ params }: { params: Promise<{ locale: strin
           <h2 className="label-caps mt-8">{s.sortTitle}</h2>
           <ul className="mt-3 space-y-2 text-sm text-muted">{s.sort.map((x) => <li key={x}>{x}</li>)}</ul>
         </aside>
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {demoProducts.map((p, i) => (
-            <li key={p.slug} data-reveal={(i % 3) * 0.08} data-tilt className="card p-4">
-              <Image {...IMG[p.image]} alt="" sizes="(min-width:1024px) 22vw, 45vw" className="aspect-square w-full rounded-xl object-cover" />
-              <p className="mt-4 font-bold">{t.home.cats[p.category]}</p>
-              <p className="mt-2 text-lg font-extrabold text-accent">{s.priceLabel}: ${p.price.toLocaleString()} {s.currency}</p>
-              <p className="text-xs text-muted">{s.demoNote}</p>
-              <a href={p.externalUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost mt-4 !h-10 !px-4 text-xs">{locale === "en" ? "View official site" : locale === "ar" ? "زيارة الموقع الرسمي" : "مشاهده سایت رسمی"}</a>
-            </li>
-          ))}
-        </ul>
+        <ShopProducts />
       </div>
     </div>
     </>
