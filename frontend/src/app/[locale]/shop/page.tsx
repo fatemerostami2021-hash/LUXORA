@@ -18,17 +18,17 @@ export default async function Shop({ params }: { params: Promise<{ locale: strin
     <div className="mx-auto max-w-7xl px-5 py-16">
       <Eyebrow>{s.eyebrow}</Eyebrow>
       <Kinetic as="h1" text={s.title} className="mt-4 max-w-3xl" immediate />
-      <p data-reveal="0.1" className="mt-5 max-w-2xl text-muted">{s.intro}</p>
-      <p className="mt-4 text-xs font-semibold text-accent">{t.common.preview}</p>
+      <p data-reveal="0.1" className="lede mt-5 max-w-2xl text-fg/80">{s.intro}</p>
+      <p className="mt-4 text-sm font-semibold text-accent">{t.common.preview}</p>
 
       <div className="mt-10 grid gap-10 md:grid-cols-[240px_1fr]">
-          <aside aria-label={s.filtersTitle}>
-          <h2 className="label-caps">{s.filtersTitle}</h2>
+          <aside aria-label={s.filtersTitle} data-reveal="0.05" className="shop-aside md:sticky md:top-28 md:self-start">
+          <h2 className="label-caps"><span className="mark" data-mark>{s.filtersTitle}</span></h2>
           <ul className="mt-4 divide-y divide-line border-y border-line text-sm">
-            {s.filters.map((f) => <li key={f} className="py-3 text-muted"><a href={`https://www.sephora.com/`} target="_blank" rel="noopener noreferrer" className="footer-link">{f}</a></li>)}
+            {s.filters.map((f) => <li key={f} className="py-3"><a href={`https://www.sephora.com/`} target="_blank" rel="noopener noreferrer" className="filter-link">{f}</a></li>)}
           </ul>
-          <h2 className="label-caps mt-8">{s.sortTitle}</h2>
-          <ul className="mt-3 space-y-2 text-sm text-muted">{s.sort.map((x) => <li key={x}>{x}</li>)}</ul>
+          <h2 className="label-caps mt-8"><span className="mark" data-mark>{s.sortTitle}</span></h2>
+          <ul className="mt-3 space-y-2 text-[.95rem] text-fg/80">{s.sort.map((x) => <li key={x}>{x}</li>)}</ul>
         </aside>
         <ShopProducts />
       </div>

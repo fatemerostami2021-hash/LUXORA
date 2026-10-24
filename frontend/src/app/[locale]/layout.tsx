@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import BrandRail from "@/components/BrandRail";
 import ChatWidget from "@/components/ChatWidget";
 import ScrollEffects from "@/components/ScrollEffects";
+import MouseMotion from "@/components/MouseMotion";
 import { StoreProvider } from "@/components/StoreProvider";
 import { getDict, getDir, isLocale, locales } from "@/lib/i18n";
 
@@ -46,6 +47,7 @@ export default async function RootLayout({
         <Footer locale={locale} t={t} />
         <ChatWidget locale={locale} />
         <ScrollEffects />
+        <MouseMotion />
       </StoreProvider></body>
     </html>
   );

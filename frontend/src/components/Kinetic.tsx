@@ -27,7 +27,7 @@ function Words({ text, chars }: { text: string; chars: boolean }) {
             </span>
           );
         });
-        return i % 2 ? <em key={i} className="kin-em">{inner}</em> : <span key={i}>{inner}</span>;
+        return i % 2 ? <em key={i} className="kin-em" data-mark>{inner}</em> : <span key={i}>{inner}</span>;
       })}
     </>
   );

@@ -24,10 +24,21 @@ export default function ScrollEffects() {
       ScrollTrigger.create({ trigger, start: "top 92%", once: true, onEnter: () => tw.play() });
       pending.push(tw);
     };
-    const playAll = () => pending.forEach((tw) => { if (tw.progress() === 0) tw.play(); });
+    const playAll = () => {
+      pending.forEach((tw) => { if (tw.progress() === 0) tw.play(); });
+      document.querySelectorAll("[data-mark]").forEach((n) => n.classList.add("is-marked"));
+    };
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
         reveal(el, { opacity: 0, y: 24, duration: 0.7, delay: Number(el.dataset.reveal) || 0, ease: "power3.out" }, el);
+      });
+      // Bouncy "jumping" entrance for cards (data-jump = delay in seconds)
+      gsap.utils.toArray<HTMLElement>("[data-jump]").forEach((el) => {
+        reveal(el, { opacity: 0, y: 56, scale: 0.92, duration: 0.85, delay: Number(el.dataset.jump) || 0, ease: "back.out(1.7)" }, el);
+      });
+      // Highlighter sweep behind marked words
+      gsap.utils.toArray<HTMLElement>("[data-mark]").forEach((el) => {
+        ScrollTrigger.create({ trigger: el, start: "top 90%", once: true, onEnter: () => el.classList.add("is-marked") });
       });
       gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
         const parent = el.parentElement;
@@ -45,19 +56,7 @@ export default function ScrollEffects() {
     });
     const safety = window.setTimeout(playAll, 3500);
     window.addEventListener("beforeprint", playAll);
-    // 3D tilt on cards (mouse only, desktop): opt in with data-tilt
-    const tiltCleanups: (() => void)[] = [];
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      gsap.utils.toArray<HTMLElement>("[data-tilt]").forEach((el) => {
-        const rx = gsap.quickTo(el, "rotationX", { duration: 0.5, ease: "power3.out" });
-        const ry = gsap.quickTo(el, "rotationY", { duration: 0.5, ease: "power3.out" });
-        gsap.set(el, { transformPerspective: 900 });
-        const move = (e: PointerEvent) => { const r = el.getBoundingClientRect(); ry(((e.clientX - r.left) / r.width - 0.5) * 9); rx(-((e.clientY - r.top) / r.height - 0.5) * 9); };
-        const leave = () => { rx(0); ry(0); };
-        el.addEventListener("pointermove", move); el.addEventListener("pointerleave", leave);
-        tiltCleanups.push(() => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); });
-      });
-    }
+    const tiltCleanups: (() => void)[] = []; // card tilt now lives in MouseMotion.tsx
     const t = window.setTimeout(() => ScrollTrigger.refresh(), 400);
     return () => { window.clearTimeout(t); window.clearTimeout(safety); window.removeEventListener("beforeprint", playAll); tiltCleanups.forEach((f) => f()); ctx.revert(); };
   }, [pathname]);

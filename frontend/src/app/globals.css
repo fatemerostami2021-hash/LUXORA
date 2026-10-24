@@ -272,3 +272,51 @@ html[dir="rtl"] .story-cue { letter-spacing: 0; text-transform: none; font-size:
 .logo-mark { flex-shrink: 0; }
 .brand-link { min-width: 0; }
 .mobile-nav { background: var(--bg); }
+
+/* =====================================================================================================
+   Shop: equal cards, clear text, Persian typography, scroll highlight
+   ===================================================================================================== */
+.shop-card__title { font-family: var(--font-sans); font-size: 1.08rem; font-weight: 800; line-height: 1.5; letter-spacing: 0; color: var(--fg); }
+html[dir="rtl"] .shop-card__title { font-size: 1.15rem; font-weight: 800; line-height: 1.6; }
+.shop-card__desc { font-size: .95rem; line-height: 1.75; color: var(--fg); opacity: .8; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 3.5em; text-wrap: pretty; }
+html[dir="rtl"] .shop-card__desc { line-height: 1.95; font-size: 1rem; }
+.shop-card__price { font-size: 1.4rem; font-weight: 800; color: var(--accent); line-height: 1.2; }
+.shop-card__price span { font-size: .8rem; font-weight: 700; opacity: .85; }
+.shop-card__stock { font-size: .9rem; color: var(--fg); opacity: .75; }
+.shop-card .btn-primary { height: 3.1rem; font-size: 1rem; }
+
+.filter-link { display: inline-block; color: var(--fg); font-size: 1rem; font-weight: 600; transition: transform .2s, color .2s; }
+.filter-link:hover, .filter-link:focus-visible { color: var(--accent); transform: translateX(4px); }
+html[dir="rtl"] .filter-link:hover, html[dir="rtl"] .filter-link:focus-visible { transform: translateX(-4px); }
+
+/* Highlighter that sweeps in when the word scrolls into view (marked words: data-mark) */
+.mark, .kin-em[data-mark] { background-image: linear-gradient(transparent 58%, var(--accent-soft) 58%, var(--accent-soft) 92%, transparent 92%); background-repeat: no-repeat; background-size: 0% 100%; background-position: 100% 0; transition: background-size .9s cubic-bezier(.2,.8,.2,1) .25s; padding-inline: .12em; margin-inline: -.12em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+html[dir="ltr"] .mark, html[dir="ltr"] .kin-em[data-mark] { background-position: 0 0; }
+.mark.is-marked, .kin-em[data-mark].is-marked { background-size: 100% 100%; }
+
+/* Persian typography: calm body text, strong weight contrast, no letter-spacing, pretty wrapping */
+html[dir="rtl"] body { font-feature-settings: "kern", "liga", "calt"; text-rendering: optimizeLegibility; }
+html[dir="rtl"] p, html[dir="rtl"] li { text-wrap: pretty; word-spacing: .02em; }
+html[dir="rtl"] .lede { line-height: 2; }
+html[dir="rtl"] .kin-em { font-weight: 300; }
+html[dir="rtl"] .display { text-wrap: balance; }
+
+@media (max-width: 640px) {
+  html[dir="rtl"] body { font-size: 1.02rem; }
+  .lede { font-size: 1.05rem; }
+  .shop-card__desc { min-height: 0; }
+  .filter-link { font-size: 1.02rem; }
+}
+@media print { [data-jump] { opacity: 1 !important; transform: none !important; } }
+
+/* ---------- Mouse motion (see MouseMotion.tsx) ---------- */
+.display, .lede, .eyebrow, [data-mtext], .kw { transition: translate .45s cubic-bezier(.2,.8,.2,1); }
+.btn-primary, .btn-ghost { transition: transform .2s, box-shadow .2s, border-color .2s, translate .3s cubic-bezier(.2,.8,.2,1); }
+.chat-fab { transition: translate .3s cubic-bezier(.2,.8,.2,1); }
+.shop-card .image-frame, .shop-card__title, .shop-card__desc, .shop-card__price { transition: translate .35s cubic-bezier(.2,.8,.2,1); }
+.image-frame img, .product-card img { transition: transform .8s cubic-bezier(.2,.8,.2,1), filter .8s ease, scale .6s cubic-bezier(.2,.8,.2,1), translate .3s cubic-bezier(.2,.8,.2,1); }
+.image-frame.is-hot img { scale: 1.12; }
+.shop-card:hover img { transform: none; }
+.shop-card { position: relative; }
+.shop-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; opacity: 0; transition: opacity .3s; background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,.28), transparent 55%); mix-blend-mode: soft-light; }
+.shop-card:hover::after { opacity: 1; }
