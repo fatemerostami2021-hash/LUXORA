@@ -107,6 +107,10 @@ html[dir="rtl"] .mega-link:hover, html[dir="rtl"] .mega-link:focus-visible { tra
 .chat-fab { background: var(--btn-bg); color: var(--btn-fg); box-shadow: var(--shadow); }
 .chat-fab::before { content: ""; position: absolute; inset: -6px; border-radius: 9999px; border: 2px solid var(--accent); opacity: .5; animation: fab-pulse 2.4s ease-out infinite; }
 @keyframes fab-pulse { 0% { transform: scale(.9); opacity: .6; } 100% { transform: scale(1.35); opacity: 0; } }
+.fab-icon { display: grid; place-items: center; animation: fab-spin-in .55s cubic-bezier(.2,.8,.2,1); }
+@keyframes fab-spin-in { from { opacity: 0; transform: rotate(-120deg) scale(.4); } to { opacity: 1; transform: none; } }
+.chat-hint { max-width: min(15rem, 70vw); padding: .5rem .8rem; border-radius: 1rem; background: var(--btn-bg); color: var(--btn-fg); font-size: .8rem; font-weight: 600; line-height: 1.5; box-shadow: var(--shadow); opacity: 0; transform: translateY(6px); transition: opacity .4s ease, transform .4s ease; pointer-events: none; }
+.chat-hint.is-on { opacity: 1; transform: none; }
 .chat-bubble-bot { background: var(--surface); border: 1px solid var(--line); color: var(--fg); }
 .chat-bubble-me { background: var(--btn-bg); color: var(--btn-fg); }
 .typing-dot { animation: typing 1s infinite ease-in-out; }

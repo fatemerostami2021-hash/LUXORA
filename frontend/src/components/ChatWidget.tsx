@@ -5,6 +5,13 @@ import { CHAT_TEXT, QA_DATA, QUICK, findAnswer } from "@/data/chat";
 import { SITE } from "@/data/site";
 import { ChatIcon, CloseIcon, HeadsetIcon, InstagramIcon, LinkedinIcon, SendIcon, TelegramIcon, WhatsAppIcon } from "./Icons";
 
+const FAB_MSGS: Record<string, string[]> = {
+  en: ["Need help choosing?", "Free beauty consultation", "Chat with us on WhatsApp", "See the newest products"],
+  fa: ["برای انتخاب محصول راهنمایی می‌خواهی؟", "مشاوره زیبایی آنلاین", "در واتساپ با ما صحبت کن", "تازه‌ترین محصولات را ببین"],
+  ar: ["هل تحتاج مساعدة في الاختيار؟", "استشارة تجميل مجانية", "تحدث معنا عبر واتساب", "شاهد أحدث المنتجات"],
+};
+const FAB_ICONS = [HeadsetIcon, WhatsAppIcon, TelegramIcon, InstagramIcon, LinkedinIcon];
+
 type Msg = { id: number; from: "bot" | "me"; text: string; cta?: boolean };
 
 export default function ChatWidget({ locale }: { locale: Locale }) {
@@ -16,6 +23,25 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
   const idRef = useRef(1);
   const endRef = useRef<HTMLDivElement>(null);
   const timer = useRef<number | undefined>(undefined);
+
+  // Closed state: icons rotate one by one INSIDE the floating circle, plus a short rotating hint.
+  const [fabIdx, setFabIdx] = useState(0);
+  const [hint, setHint] = useState(0);
+  const [hintOn, setHintOn] = useState(false);
+  useEffect(() => {
+    if (open) return;
+    const t = window.setInterval(() => setFabIdx((v) => (v + 1) % FAB_ICONS.length), 1800);
+    return () => window.clearInterval(t);
+  }, [open]);
+  useEffect(() => {
+    if (open) { setHintOn(false); return; }
+    const list = FAB_MSGS[locale] ?? FAB_MSGS.en;
+    let hide: number | undefined;
+    const show = () => { setHintOn(true); hide = window.setTimeout(() => setHintOn(false), 3500); };
+    const first = window.setTimeout(show, 3000);
+    const t = window.setInterval(() => { setHint((v) => (v + 1) % list.length); show(); }, 7000);
+    return () => { window.clearTimeout(first); window.clearTimeout(hide); window.clearInterval(t); };
+  }, [open, locale]);
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
   useEffect(() => { endRef.current?.scrollIntoView({ block: "end" }); }, [msgs, typing, open]);
@@ -107,9 +133,12 @@ export default function ChatWidget({ locale }: { locale: Locale }) {
         </section>
       )}
 
+      {!open && (
+        <div className={`chat-hint ${hintOn ? "is-on" : ""}`} aria-hidden="true">{(FAB_MSGS[locale] ?? FAB_MSGS.en)[hint]}</div>
+      )}
       <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label={open ? c.close : c.open}
         className="chat-fab relative grid h-14 w-14 place-items-center rounded-full">
-        {open ? <CloseIcon width={24} height={24} /> : <HeadsetIcon width={27} height={27} />}
+        {open ? <CloseIcon width={24} height={24} /> : (() => { const I = FAB_ICONS[fabIdx]; return <span key={fabIdx} className="fab-icon"><I width={26} height={26} /></span>; })()}
         <span className="absolute end-0 top-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-400" />
       </button>
     </div>

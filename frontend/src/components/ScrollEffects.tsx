@@ -15,12 +15,19 @@ export default function ScrollEffects() {
     gsap.registerPlugin(ScrollTrigger);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
+    // Every reveal tween starts paused and plays when scrolled into view. As a safety net (screenshots,
+    // PDF export, full-page capture tools that never scroll) anything still hidden is played after 3.5 s,
+    // so content can never stay invisible.
+    const pending: gsap.core.Tween[] = [];
+    const reveal = (el: Element, from: gsap.TweenVars, trigger: Element) => {
+      const tw = gsap.from(el, { ...from, paused: true });
+      ScrollTrigger.create({ trigger, start: "top 92%", once: true, onEnter: () => tw.play() });
+      pending.push(tw);
+    };
+    const playAll = () => pending.forEach((tw) => { if (tw.progress() === 0) tw.play(); });
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
-        gsap.from(el, {
-          opacity: 0, y: 48, duration: 0.9, delay: Number(el.dataset.reveal) || 0, ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 92%", once: true },
-        });
+        reveal(el, { opacity: 0, y: 24, duration: 0.7, delay: Number(el.dataset.reveal) || 0, ease: "power3.out" }, el);
       });
       gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
         const parent = el.parentElement;
@@ -33,9 +40,11 @@ export default function ScrollEffects() {
       });
       gsap.utils.toArray<HTMLImageElement>("main img").forEach((img) => {
         const frame = img.closest<HTMLElement>(".image-frame, .card, section") || img;
-        gsap.fromTo(img, { scale: 1.08, opacity: 0.72 }, { scale: 1, opacity: 1, duration: 1.15, ease: "power3.out", scrollTrigger: { trigger: frame, start: "top 92%", once: true } });
+        reveal(img, { scale: 1.04, opacity: 0.9, duration: 0.8, ease: "power3.out" }, frame);
       });
     });
+    const safety = window.setTimeout(playAll, 3500);
+    window.addEventListener("beforeprint", playAll);
     // 3D tilt on cards (mouse only, desktop): opt in with data-tilt
     const tiltCleanups: (() => void)[] = [];
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
@@ -50,7 +59,7 @@ export default function ScrollEffects() {
       });
     }
     const t = window.setTimeout(() => ScrollTrigger.refresh(), 400);
-    return () => { window.clearTimeout(t); tiltCleanups.forEach((f) => f()); ctx.revert(); };
+    return () => { window.clearTimeout(t); window.clearTimeout(safety); window.removeEventListener("beforeprint", playAll); tiltCleanups.forEach((f) => f()); ctx.revert(); };
   }, [pathname]);
   return null;
 }
